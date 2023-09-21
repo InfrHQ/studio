@@ -9,7 +9,8 @@
     "lint": "eslint 'app/**/*.{js,jsx,ts,tsx}'",
     "format:check": "prettier --check 'app/**/*.{js,jsx,ts,tsx,css,md,json,html}'",
     "format": "prettier --write 'app/**/*.{js,jsx,ts,tsx,css,md,json,html}'",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
   },
   "husky": {
     "hooks": {
