@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   PersonIcon,
   HamburgerMenuIcon,
@@ -12,9 +12,46 @@ import {
   CaretDownIcon,
 } from '@radix-ui/react-icons';
 import ThemeToggle from '@/components/ThemeToggle';
+import { getLocalData, setLocalData, removeLocalData } from '@/utils/localStorage';
+import { makeServerCall } from '@/utils/infrTools';
 
 function DashboardLayout({ children }) {
   const [userDropdown, setUserDropdown] = useState(false);
+  const [userData, setUserData] = useState({});
+
+  async function getUserData() {
+    let userDataCall = await makeServerCall('/v1/user/query/apikey', 'GET');
+
+    if (userDataCall.ok) {
+      let userData = await userDataCall.json();
+      setLocalData('user', userData?.user);
+      setUserData(userData?.user);
+    } else {
+      removeLocalData();
+      window.location.href = '/join';
+    }
+  }
+
+  useEffect(() => {
+    // Check if user is logged in
+    const userData = getLocalData();
+
+    if (userData) {
+      // Check if API Key & Server Host are not set
+      if (!userData?.api_key && !userData?.server_host) {
+        removeLocalData();
+        window.location.href = '/join';
+      }
+
+      // If API Key & Server Host are set
+      // Get user data from API
+      getUserData();
+    } else {
+      removeLocalData();
+      window.location.href = '/join';
+    }
+  }, []);
+
   return (
     <div>
       <div className="antialiased bg-gray-50 dark:bg-gray-900 flex flex-col min-h-screen">
@@ -65,8 +102,8 @@ function DashboardLayout({ children }) {
                   id="user-dropdown"
                 >
                   <div className="py-3 px-4">
-                    <span className="block text-sm font-semibold text-gray-900 dark:text-white">Infr User</span>
-                    <span className="block text-sm text-gray-900 truncate dark:text-white">hi@getinfr.com</span>
+                    <span className="block text-sm font-semibold text-gray-900 dark:text-white">{userData?.name}</span>
+                    <span className="block text-sm text-gray-900 truncate dark:text-white">{userData?.email_id}</span>
                   </div>
 
                   <ul className="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
@@ -102,7 +139,7 @@ function DashboardLayout({ children }) {
                     <li>
                       <a
                         href="#"
-                        className="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"
+                        className="flex items-center py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                       >
                         Server Stats
                       </a>
@@ -148,7 +185,7 @@ function DashboardLayout({ children }) {
                   data-collapse-toggle="dropdown-pages"
                 >
                   <CubeIcon className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-                  <span className="flex-1 ml-3 text-left whitespace-nowrap">Pages</span>
+                  <span className="flex-1 ml-3 text-left whitespace-nowrap">Apps</span>
                   <CaretDownIcon className="w-4 h-4 text-gray-500 transition duration-75 transform group-hover:-rotate-180 group-focus:rotate-180 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
                 </button>
                 <ul id="dropdown-pages" className="hidden py-2 space-y-2">

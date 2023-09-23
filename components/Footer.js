@@ -1,6 +1,6 @@
-import { DiscordLogoIcon, TwitterLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
+import { DiscordLogoIcon, TwitterLogoIcon, GitHubLogoIcon } from '@radix-ui/react-icons';
 
-function Footer({lightBG, darkBG, otherClasses}) {
+function Footer({ lightBG, darkBG, otherClasses }) {
   return (
     <footer className={`${lightBG} dark:${darkBG} ${otherClasses}`}>
       <div className="mx-auto w-full p-10 py-6 lg:py-8">
@@ -63,7 +63,7 @@ function Footer({lightBG, darkBG, otherClasses}) {
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © 2023{' '}
-            <a href="https://flowbite.com/" className="hover:underline">
+            <a href="https://getinfr.com/" className="hover:underline">
               Infr™
             </a>
             . All Rights Reserved.
