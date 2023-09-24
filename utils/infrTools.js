@@ -22,7 +22,7 @@ async function makeServerCall(path, method, info) {
   return response;
 }
 
-async function strToBase4(query) {
+function strToBase4(query) {
   return Buffer.from(query).toString('base64');
 }
 
