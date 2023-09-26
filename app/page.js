@@ -3,15 +3,15 @@
 import DashboardLayout from '@/components/Dashboard/Layout';
 
 function Home() {
-  return <main></main>;
+    return <main></main>;
 }
 
 function DashboardHome() {
-  return (
-    <DashboardLayout>
-      <Home />
-    </DashboardLayout>
-  );
+    return (
+        <DashboardLayout>
+            <Home />
+        </DashboardLayout>
+    );
 }
 
 export default DashboardHome;

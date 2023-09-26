@@ -1,30 +1,28 @@
 import { getLocalData } from './localStorage';
 
 async function makeServerCall(path, method, info) {
-  let userData = getLocalData();
+    let userData = getLocalData();
 
-  let url = `${userData.server_host}/${path}`;
+    let url = `${userData.server_host}/${path}`;
 
-  let requestInit = {
-    method: method,
-    headers: {
-      'Content-Type': 'application/json',
-      'Infr-API-Key': userData.api_key,
-    },
-  };
+    let requestInit = {
+        method: method,
+        headers: {
+            'Infr-API-Key': userData.api_key,
+        },
+    };
 
-  if (method === 'POST' || method === 'PUT') {
-    requestInit.body = JSON.stringify(info);
-  }
+    if (method === 'POST' || method === 'PUT') {
+        requestInit.headers['Content-Type'] = 'application/json';
+        requestInit.body = JSON.stringify(info);
+    }
 
-  let response = await fetch(url, requestInit);
-
-  return response;
+    let response = await fetch(url, requestInit);
+    return response;
 }
 
 function strToBase4(query) {
-  return Buffer.from(query).toString('base64');
+    return Buffer.from(query).toString('base64');
 }
-
 
 export { makeServerCall, strToBase4 };
