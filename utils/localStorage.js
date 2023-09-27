@@ -12,7 +12,9 @@ function setLocalData(key, data) {
         userData[key] = data;
         localStorage.setItem('userData', JSON.stringify(userData));
     } else {
-        localStorage.setItem('userData', JSON.stringify({ key: data }));
+        let newData = {};
+        newData[key] = data;
+        localStorage.setItem('userData', JSON.stringify(newData));
     }
 }
 
