@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
-import DatePicker from 'react-datepicker';
+import { DatePicker } from './Datepicker';
 import { CalendarIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
-import 'react-datepicker/dist/react-datepicker.css';
 import { makeServerCall } from '@/utils/infrTools';
+import { Input } from '@/components/ui/input';
+import { Combobox } from './Combobox';
 
 function SingleCard({ item, isLoading = false }) {
     let dateGenerated;
@@ -40,9 +41,9 @@ function SingleCard({ item, isLoading = false }) {
             />
             <div className="flex-grow">
                 <h4 className="text-lg text-black dark:text-white">
-                    {item?.attributes?.app_name} <span className="text-sm text-gray-500">{misc_item}</span>
+                    {item?.attributes?.app_name} <span className="text-sm text-slate-500">{misc_item}</span>
                 </h4>
-                <p className="text-xs text-gray-400">{dateGenerated}</p>
+                <p className="text-xs text-slate-400">{dateGenerated}</p>
             </div>
         </div>
     );
@@ -54,8 +55,10 @@ function SearchBar() {
     const [query, setQuery] = useState('');
 
     const [results, setResults] = useState([]);
+
     const [startDate, setStartDate] = useState(new Date(new Date().setDate(new Date().getDate() - 7)));
     const [endDate, setEndDate] = useState(new Date());
+    const [appSelected, setAppSelected] = useState('all');
 
     const searchDebounce = useRef(null);
 
@@ -120,52 +123,48 @@ function SearchBar() {
 
     return (
         <div className="relative w-full">
-            <div className="relative w-full flex space-x-1">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <MagnifyingGlassIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+            <div className="flex items-center mb-3">
+                <div className="relative">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <CalendarIcon className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+                    </div>
+                    <DatePicker date={startDate} setDate={setStartDate} />
                 </div>
-                <input
+                <span className="mx-4 text-slate-500">to</span>
+                <div className="relative">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <CalendarIcon className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+                    </div>
+
+                    <DatePicker date={endDate} setDate={setEndDate} />
+                </div>
+                <span className="mx-4 text-slate-500">in</span>
+                <div className="relative">
+                    <Combobox value={appSelected} setValue={setAppSelected} />
+                </div>
+            </div>
+            <div className="relative w-full flex ">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <MagnifyingGlassIcon className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+                </div>
+                <Input
                     type="search"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="block w-full p-4 pl-10 "
                     placeholder="Search for anything..."
                     required
                 />
-                <div className="flex items-center ml-10">
-                    <div className="relative">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <CalendarIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-                        </div>
-                        <DatePicker
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-4  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        />
-                    </div>
-                    <span className="mx-4 text-gray-500">to</span>
-                    <div className="relative">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <CalendarIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-                        </div>
-
-                        <DatePicker
-                            selected={endDate}
-                            onChange={(date) => setEndDate(date)}
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-4  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        />
-                    </div>
-                </div>
             </div>
-            {results.length > 0 && !searchLoading && (
-                <div className="max-h-96 overflow-y-auto absolute w-full mt-2 bg-white dark:bg-black  border border-gray-300 rounded-lg shadow-md z-10">
+            {results.length > 0 && !searchLoading && query && (
+                <div className="max-h-96 overflow-y-auto absolute w-full mt-2 bg-slate-50 dark:bg-slate-900  border border-slate-300 rounded-lg shadow-md z-10">
                     {results.map((item) => (
                         <SingleCard item={item} key={item?.id} />
                     ))}
                 </div>
             )}{' '}
-            {searchLoading && (
-                <div className="max-h-96 overflow-y-auto absolute w-full mt-2 bg-black bg-opacity-80 border border-gray-300 rounded-lg shadow-md z-10">
+            {searchLoading && query && (
+                <div className="max-h-96 overflow-y-auto absolute w-full mt-2 bg-slate-50 dark:bg-slate-900 bg-opacity-80 border border-slate-300 rounded-lg shadow-md z-10">
                     <SingleCard isLoading={true} />
                     <SingleCard isLoading={true} />
                     <SingleCard isLoading={true} />

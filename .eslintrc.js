@@ -34,4 +34,5 @@ module.exports = {
         indent: ['error', 4],
     },
     plugins: ['react'],
+    ignorePatterns: ['components/ui/*'],
 };

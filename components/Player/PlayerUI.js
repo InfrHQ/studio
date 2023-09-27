@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Slider } from '@/components/ui/slider';
 
 function PlayerUI({ images, currentIndex, setCurrentIndex, fetchingImages, allSegmentsFetched }) {
     const [displayedIndex, setDisplayedIndex] = useState(currentIndex);
@@ -8,8 +9,7 @@ function PlayerUI({ images, currentIndex, setCurrentIndex, fetchingImages, allSe
         setDisplayedIndex(currentIndex);
     }, [currentIndex]);
 
-    const handleSliderChange = (e) => {
-        const newIndex = e.target.value;
+    const handleSliderChange = (newIndex) => {
         setCurrentIndex(newIndex); // Update the slider's position instantly
 
         // Clear any previous timeouts
@@ -25,7 +25,7 @@ function PlayerUI({ images, currentIndex, setCurrentIndex, fetchingImages, allSe
         <div>
             <div className="flex flex-col items-center w-full h-full mt-5">
                 <div className="flex justify-center items-center h-120 w-full relative overflow-hidden">
-                    <div className="rounded rounded-m">
+                    <div className="rounded rounded-m bg-slate-50 dark:bg-slate-800">
                         <img
                             src={images[displayedIndex]?.screenshot_url}
                             alt={`Image for timestamp: ${images[displayedIndex]?.timestamp}`}
@@ -71,12 +71,13 @@ function PlayerUI({ images, currentIndex, setCurrentIndex, fetchingImages, allSe
                     </p>
                 </div>
 
-                <input
+                <Slider
                     type="range"
-                    min="0"
+                    min={0}
                     max={images.length - 1}
-                    value={currentIndex}
-                    onChange={handleSliderChange}
+                    step={1}
+                    defaultValue={[currentIndex]}
+                    onValueChange={handleSliderChange}
                     className="w-full mt-5"
                     disabled={fetchingImages}
                 />
