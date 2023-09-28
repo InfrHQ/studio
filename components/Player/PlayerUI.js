@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Slider } from '@/components/ui/slider';
 import { Panel } from './Panel';
 import SearchBar from './SearchBar';
-import { postConvertTimestamp } from '../../utils/Time';
+import { postConvertTimestamp } from '../../utils/time';
 
 function PlayerUI({ images, currentIndex, setCurrentIndex, fetchingImages, allSegmentsFetched }) {
     const [displayedIndex, setDisplayedIndex] = useState(currentIndex);
