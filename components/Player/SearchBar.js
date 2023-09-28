@@ -122,7 +122,7 @@ function SearchBar() {
     }, [startDate, endDate, query]);
 
     return (
-        <div className="relative w-full">
+        <div className="relative">
             <div className="flex items-center mb-3">
                 <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">

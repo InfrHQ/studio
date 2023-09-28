@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import ImagePlayer from '@/components/Player/PlayerLogic';
-import SearchBar from '@/components/Player/SearchBar';
 
 import DashboardLayout from '@/components/Dashboard/Layout';
 
@@ -20,10 +19,7 @@ function Home() {
 
     return (
         <div>
-            <main className="flex min-h-screen flex-col items-center justify-between p-10">
-                <SearchBar />
-                {!loading && <ImagePlayer segment={searchText} />}
-            </main>
+            <main className="flex min-h-screen flex-col p-10">{!loading && <ImagePlayer segment={searchText} />}</main>
         </div>
     );
 }

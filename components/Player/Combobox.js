@@ -35,6 +35,14 @@ const frameworks = [
         value: 'discord',
         label: 'Discord',
     },
+    {
+        value: 'visual',
+        label: 'VSCode',
+    },
+    {
+        value: 'infr',
+        label: 'Infr',
+    },
 ];
 
 export function Combobox({ value, setValue }) {
