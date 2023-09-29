@@ -125,7 +125,7 @@ function DashboardLayout({ children }) {
                                     <ul className="py-1 text-slate-700 dark:text-slate-300" aria-labelledby="dropdown">
                                         <li>
                                             <a
-                                                href="#"
+                                                href="/setting/user"
                                                 className="flex items-center py-2 px-4 text-sm hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white"
                                             >
                                                 <PersonIcon className="w-5 h-5 mr-2" />
@@ -134,7 +134,7 @@ function DashboardLayout({ children }) {
                                         </li>
                                         <li>
                                             <a
-                                                href="#"
+                                                href="/setting/device"
                                                 className="flex items-center py-2 px-4 text-sm hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white"
                                             >
                                                 <LaptopIcon className="w-5 h-5 mr-2" />
@@ -143,7 +143,7 @@ function DashboardLayout({ children }) {
                                         </li>
                                         <li>
                                             <a
-                                                href="#"
+                                                href="/setting/key"
                                                 className="flex items-center py-2 px-4 text-sm hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white"
                                             >
                                                 <LockClosedIcon className="w-5 h-5 mr-2" />
@@ -154,7 +154,7 @@ function DashboardLayout({ children }) {
                                     <ul className="py-1 text-slate-700 dark:text-slate-300" aria-labelledby="dropdown">
                                         <li>
                                             <a
-                                                href="#"
+                                                href="/stats"
                                                 className="flex items-center py-2 px-4 text-sm hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white"
                                             >
                                                 Server Stats
