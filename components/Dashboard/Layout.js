@@ -6,7 +6,6 @@ import {
     LockClosedIcon,
     LaptopIcon,
     PieChartIcon,
-    HeartIcon,
     ReaderIcon,
 } from '@radix-ui/react-icons';
 import ThemeToggle from '@/components/ThemeToggle';
@@ -200,21 +199,11 @@ function DashboardLayout({ children }) {
                         <ul className="pt-5 mt-5 space-y-2 border-t border-slate-200 dark:border-slate-700">
                             <li>
                                 <a
-                                    href="#"
+                                    href="https://getinfr.com/docs"
                                     className="flex items-center p-2 text-base font-medium text-slate-900 rounded-lg transition duration-75 hover:bg-slate-100 dark:hover:bg-slate-700 dark:text-white group"
                                 >
                                     <ReaderIcon className="w-6 h-6 text-slate-500 transition duration-75 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white" />
                                     <span className="ml-3">Docs</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a
-                                    href="#"
-                                    className="flex items-center p-2 text-base font-medium text-slate-900 rounded-lg transition duration-75 hover:bg-slate-100 dark:hover:bg-slate-700 dark:text-white group"
-                                >
-                                    <HeartIcon className="w-6 h-6 text-slate-500 transition duration-75 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white" />
-                                    <span className="ml-3">Help</span>
                                 </a>
                             </li>
                         </ul>
